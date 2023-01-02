@@ -22,7 +22,6 @@ from django.conf.urls.static import static
 from alteernlingual_user import views
 import alteernlingual_user
 from django.contrib.auth import views as auth_views
-import alteernlingual_subjects
 from Alteernlingual_topic.views import AllTopicsSimple
 
 
@@ -34,7 +33,7 @@ urlpatterns = [
     path('accounts/logout/', views.logout_request, name='logout'),
     path('', include('alteernlingual_user.urls')),
     path('class/', include('Alteernlingual_topic.urls')),
-    path('subjects/', include('alteernlingual_subjects.urls')),
+    # path('subjects/', include('alteernlingual_subjects.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('i18n/', include('django.conf.urls.i18n')),
 

@@ -20,8 +20,8 @@ from django.views import View
 
 from .forms import ProfileForm, form_validation_error
 from .models import Profile
-from Alteernlingual_topic.models import Topic, LanguageFollow, Language, LanguageLevel
-from alteernlingual_subjects.models import SubjectFollow
+# from Alteernlingual_topic.models import Topic, LanguageFollow, Language, LanguageLevel
+# from alteernlingual_subjects.models import SubjectFollow
 from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
@@ -29,28 +29,28 @@ from django.template.loader import get_template
 def home(request):
         return render(request, 'index.html')
 
-def topicPercent(read_count, total_topic):
-    if total_topic == 0:
-        total_topic = 1
-    percentage = int(read_count / total_topic * 100)
+# def topicPercent(read_count, total_topic):
+#     if total_topic == 0:
+#         total_topic = 1
+#     percentage = int(read_count / total_topic * 100)
 
-    return percentage
+#     return percentage
 
-@login_required
-def dashboard(request):
-    language_follow = LanguageFollow.objects.filter(user=request.user)
-    read = LanguageFollow.objects.filter(user=request.user)
-    read_count = Topic.objects.filter(read=request.user, language__language_follow__user=request.user).count()
-    total_topic = Topic.objects.filter(language__language_follow__user=request.user).count()
-    percent =  topicPercent(read_count, total_topic)
-    subject_follow = SubjectFollow.objects.filter(user=request.user)
-    last_read = Topic.objects.filter(read=request.user).last()
+# @login_required
+# def dashboard(request):
+#     language_follow = LanguageFollow.objects.filter(user=request.user)
+#     read = LanguageFollow.objects.filter(user=request.user)
+#     read_count = Topic.objects.filter(read=request.user, language__language_follow__user=request.user).count()
+#     total_topic = Topic.objects.filter(language__language_follow__user=request.user).count()
+#     percent =  topicPercent(read_count, total_topic)
+#     subject_follow = SubjectFollow.objects.filter(user=request.user)
+#     last_read = Topic.objects.filter(read=request.user).last()
 
-    return render(request, 'auth_user/userDashboard.html',  {
-    "read_count": read_count, "total_topic": total_topic, 'language_follow': language_follow, "percent": percent,
-    "subject_follow": subject_follow, "last_read": last_read
+#     return render(request, 'auth_user/userDashboard.html',  {
+#     "read_count": read_count, "total_topic": total_topic, 'language_follow': language_follow, "percent": percent,
+#     "subject_follow": subject_follow, "last_read": last_read
 
-        })
+#         })
 
 
 def register_request(request):
@@ -93,32 +93,32 @@ def logout_request(request):
     return redirect("home")
 
 
-@method_decorator(login_required(login_url='login'), name='dispatch')
-class ProfileView(View):
-    profile = None
+# @method_decorator(login_required(login_url='login'), name='dispatch')
+# class ProfileView(View):
+#     profile = None
 
-    def dispatch(self, request, *args, **kwargs):
-        self.profile, __ = Profile.objects.get_or_create(user=request.user)
-        return super(ProfileView, self).dispatch(request, *args, **kwargs)
+#     def dispatch(self, request, *args, **kwargs):
+#         self.profile, __ = Profile.objects.get_or_create(user=request.user)
+#         return super(ProfileView, self).dispatch(request, *args, **kwargs)
 
-    def get(self, request):
-        context = {'profile': self.profile, 'segment': 'profile'}
-        return render(request, 'auth_user/userProfile.html', context)
+#     def get(self, request):
+#         context = {'profile': self.profile, 'segment': 'profile'}
+#         return render(request, 'auth_user/userProfile.html', context)
 
-    def post(self, request):
-        form = ProfileForm(request.POST, request.FILES, instance=self.profile)
+#     def post(self, request):
+#         form = ProfileForm(request.POST, request.FILES, instance=self.profile)
 
-        if form.is_valid():
-            profile = form.save()
-            profile.user.first_name = form.cleaned_data.get('first_name')
-            profile.user.last_name = form.cleaned_data.get('last_name')
-            profile.user.email = form.cleaned_data.get('email')
-            profile.user.save()
+#         if form.is_valid():
+#             profile = form.save()
+#             profile.user.first_name = form.cleaned_data.get('first_name')
+#             profile.user.last_name = form.cleaned_data.get('last_name')
+#             profile.user.email = form.cleaned_data.get('email')
+#             profile.user.save()
 
-            messages.success(request, 'Profile saved successfully')
-        else:
-            messages.error(request, form_validation_error(form))
-        return redirect('profile')
+#             messages.success(request, 'Profile saved successfully')
+#         else:
+#             messages.error(request, form_validation_error(form))
+#         return redirect('profile')
 
 
 @login_required

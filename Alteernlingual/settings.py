@@ -38,8 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'alteernlingual_user',
-    'Alteernlingual_topic',
-    'alteernlingual_subjects',
+    'Alteernlingual_topic',    
     'crispy_forms',
     'ckeditor',
     'social_django'
@@ -118,7 +117,7 @@ WSGI_APPLICATION = 'Alteernlingual.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'alteernlingual_db',
+        'NAME': 'alteernlingual_db2',
         'USER': 'postgres',
         'PASSWORD': '1234Asdf##',
         'HOST': 'localhost',
