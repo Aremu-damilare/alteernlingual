@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% block title %}Alteɘrnligual - Lesson {% endblock %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+
+{% include '../auth_user/userNav.html' %}
+
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" 
+integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script>
+  $(document).ready(function() {
+  $('#show-hidden-menu').click(function() {
+    $('.hidden-menu').slideToggle("slow");
+    // Alternative animation for example
+    // slideToggle("fast");
+  });
+});
+
+$(document).ready(function() {
+  $('#show-hidden-menu-level').click(function() {
+    $('.hidden-menu-level').slideToggle("slow");
+    // Alternative animation for example
+    // slideToggle("fast");
+  });
+});
+</script>
+
+
+<link href=" {% static 'css/volt.css' %} " rel="stylesheet">
+  <section >
+    <div class="container">
+      <br><br>
+      <style>
+        .btn-light {
+            color: #262B40;
+            background-color: #ffffff;
+            border-color: #eaedf2;
+            box-shadow: inset 0 1px 0 rgb(255 255 255 / 15%), 0 1px 1px rgb(46 54 80 / 8%);
+        }  
+        </style>
+       <br><br>
+       <div>
+                <div class="card text-center">
+                  <div class="card-header"  id="show-hidden-menu">
+                   
+                    <h4>
+                      <img src="{% static 'img/readcart.png' %}"  width="100px" height="100px"><br><br>
+                    I want to learn...
+                  
+                  </h4>
+                <!-- </button> -->
+                   
+                  </div>
+                  <div class="card-body hidden-menu" style="display: none;">
+                  	<!-- <img src="{% static 'img/readcart.png' %}"  width="200px"><br> -->
+                    <!-- <h5 class="card-title">I want to learn...</h5> --><br>
+
+                         {% for cate in language %}
+                            {% if user.id not in cate.all_user %}      
+                                  {% if if_follow %}
+                                 <a href="{% url 'follow_cat' cate.id %}#level" class="btn btn-link disabled">  +  <i class="fas fa-envelope"></i> &nbsp; {{ cate }}  &nbsp; &nbsp; </a> &nbsp; &nbsp;
+                                  {% else %} 
+                                  <a href="{% url 'follow_cat' cate.id %}#level" class="btn btn-link">  +  <i class="fas fa-envelope"></i> &nbsp; {{ cate }}  &nbsp; &nbsp; </a> &nbsp; &nbsp;
+                                 {% endif %} 
+                                 
+                                 {% else %} 
+                                <a  class="btn btn-info" href="{% url 'follow_cat' cate.id %}?unfollow=true">  - <i class="fas fa-envelope-open-text"></i>   &nbsp; {{ cate }} &nbsp; &nbsp;</a> &nbsp; &nbsp; 
+                         {% endif %}
+                        {% endfor %}
+                   <br><br>
+                   {% for cf in follow_cats %}
+                    <i> {{ cf.language}} selected. </i> 
+                      {% endfor %}
+                    <div>
+                      <i>
+                       <small> You can learn only one language at a time</small> 
+                      </i>                    
+                  </div>
+                  </div>
+                  
+                </div>         
+   <br>
+    {% if fcats %}
+     <div class="card text-center">
+                  <div class="card-body" id="show-hidden-menu-level">
+                    
+                    
+                    <h5 >
+                      <!-- <i class="fa fa-paint-brush" aria-hidden="true"></i>  -->
+                      
+                      &nbsp;
+                       Choose language level
+                      </h5>
+                   
+
+                   <br>
+                    <div class="hidden-menu-level" style="display: none;">
+                                 {% for ski in fcats %} 
+                                    {% if user.id not in ski.all_user %}     
+                                    {% if if_level %}     
+                                 <a href="{% url 'follow_ski' ski.id %}#level" class="btn btn-warning disabled"> + {{ ski }}   &nbsp; &nbsp;</a> 
+                                 {% else %}
+                                 <a href="{% url 'follow_ski' ski.id %}#level" class="btn btn-link"> + {{ ski }}   &nbsp; &nbsp;</a> 
+                                 {% endif %}       
+                                 
+                                 {% else %} 
+                                 <a style="color: red" href="{% url 'follow_ski' ski.id %}?unfollow=true" class="btn btn-link">   - {{ ski }}  &nbsp; &nbsp;</a>
+                         {% endif %}
+                        {% endfor %}
+                        
+                   <br>
+                   <br>
+                  </div>
+                  <!-- <div class="card-footer text-muted">
+                     
+                       <br>  
+                          {% for fs in follow_level %}
+                          level: <i>{{ fs.level }} </i> 
+                      {% endfor %}
+                  </div> -->
+                </div>
+              
+    </div>
+   {% endif %}     
+  </div>
+
+      {% if posts %}
+      
+        {% endif %}
+
+        {% if posts %}
+         <div class="card text-center">
+                  <div class="card-body">
+                    &nbsp;
+                    <h5 class="card-title">Topics for you to learn</h5>
+                    <p>
+                      <small>
+                        The last topic you read was
+                      </small> <br>
+                        {{ last_read }}
+                    </p>
+                    &nbsp;                                                    
+                      {% for c in posts %}        
+                          <ul class="list-group" style="text-align: left;"> 
+                            <li class="list-group-item">
+                              
+
+                               {% if request.user not in c.read.all %}
+                              
+                                <a href="{% url 'detail'  c.pk %}" style="font-size: 15px;">  {{ c.title }} </a>
+
+                              {% else %}
+                              <i class="fa fa-check" aria-hidden="true"></i>
+                                 <a href="{% url 'detail'  c.pk %}" style="font-size: 15px; color: darkgrey;">  {{ c.title }} </a>
+                              {% endif %}
+
+
+                            </li> 
+                          </ul>
+                          
+                   {% endfor %}
+                  </div>
+                  <div class="">
+                    {% if page_obj.has_previous %}
+                    <a style="font-size: 20px;" href="?page={{ page_obj.previous_page_number }}">« Previous</a>
+
+                    {% if page_obj.number > 3 %}
+                    &nbsp; <a style="font-size: 20px;" href="?page=1">1</a> &nbsp;
+                      {% if page_obj.number > 4 %}
+                        <span>...</span>
+                      {% endif %}
+                    {% endif %}
+                  {% endif %}
+
+                  {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                      &nbsp; <a style="font-size: 20px;"  href="?page={{ num }}">{{ num }}</a>&nbsp;
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    &nbsp;    <a style="font-size: 20px;" href="?page={{ num }}">{{ num }}</a>&nbsp; 
+                    {% endif %}
+                  {% endfor %}
+
+                  {% if page_obj.has_next %}
+                    {% if page_obj.number < page_obj.paginator.num_pages|add:'-3' %}
+                      <span>...</span>
+                      &nbsp;    <a  style="font-size: 20px;" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a> &nbsp;
+                    {% elif page_obj.number < page_obj.paginator.num_pages|add:'-2' %}
+                    &nbsp;   <a  style="font-size: 20px;" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a> &nbsp;
+                    {% endif %}
+
+                    <a style="font-size: 20px;" href="?page={{ page_obj.next_page_number }}">Next »</a>
+                  {% endif %}
+                  </div>
+                  
+                </div>       
+
+          {% endif %}
+
+      </div>
+    </section><!-- End Contact Section -->
+  </main><!-- End #main -->
+
+
+{% include '../auth_user/auth_footer.html' %}
+
+ {% endblock %}
+

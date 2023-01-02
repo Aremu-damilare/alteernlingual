@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+{% block title %}Alteɘrnligual - {{topic.title}}{% endblock %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<link href=" {% static 'css/volt.css' %} " rel="stylesheet">
+
+<script>
+function goBack() {
+  window.history.back();}
+</script> 
+
+<!-- <script>
+  audiojs.events.ready(function() {
+    var as = audiojs.createAll();
+  });
+</script> -->
+
+{% include '../auth_user/userNavTopicDetail.html' %}
+
+  <section >
+    <div class="container">
+      <br>
+
+  <style>
+    /* p{
+      padding-left: 10px;
+    } */
+    audio { display:none; }
+
+    .audiojs {
+      /* float: none;
+    position: absolute;
+    width: 35px;
+    background-image: url();
+    background-size: cover;
+    background-color: transparent; */
+    /* border: 0px;
+    border-radius: 41px;
+    margin-top: -45px;
+    margin-bottom: 15px;
+    margin-left: -15px;
+    display: -webkit-inline-box;
+    -webkit-box-shadow: 1px 1px 8px rgb(255 255 255 / 30%); */
+    
+        }
+
+
+        .audiojs .play-pause { border-right: 0px; }
+        .audiojs .scrubber { display: none; } 
+        .audiojs .time {  display: none; } 
+        .audiojs .time {  display: none; }
+        
+    table {
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 20px;
+      height: 50%;
+      table-layout: fixed;
+      width: 100%;
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+
+    td {
+      border: 0.1px solid #c1caff;
+      text-align: left;
+      padding: 3px;
+      background-color: white;
+      border-radius: 20px;
+    }
+
+    tr:nth-child(even) {
+      background-color: white;
+    }
+
+    h1 {
+      /*color: green;*/
+    }
+    svg.svg-inline--fa.fa-volume-up.fa-w-18.fa-1x {
+    width: 11px;
+}
+  </style>
+
+  {{ prev_topic}}
+<script>
+    const checkElement = async selector => {
+  while ( document.querySelector(selector) === null) {
+      await new Promise( resolve =>  requestAnimationFrame(resolve) )
+  }
+return document.querySelector(selector); 
+};                  
+                
+  window.addEventListener('load', function () {
+      const audioTag = document.querySelectorAll(".ckeditor-html5-audio");
+
+    for(let elem of audioTag){
+      // console.log("aaaa", elem)
+      let html = "<span class='v-icon'><i  class='fa fa-volume-up fa-1x' style='color:grey;opacity:1'></i></span>";
+      elem.insertAdjacentHTML("beforeend", html);
+    }
+  })
+ 
+
+  checkElement('.v-icon').then((selector) => {        
+    let a=0;
+    // audioIcon = document.querySelectorAll(".v-icon")
+
+    var toggleExtras = document.querySelectorAll(".v-icon");
+
+    Array.prototype.forEach.call(toggleExtras, function (toggleExtra, index) {
+        toggleExtra.addEventListener('click', function () {
+      // console.log(index);
+      if(a==0){
+        console.log("aaaa", document.getElementsByTagName("audio")[index])
+        document.querySelectorAll("audio")[index].play();a++;
+          }else{
+            document.querySelectorAll("audio")[index].pause();a--;
+        }
+      })
+    });
+
+    
+  })
+</script>
+<!-- <script>
+    var mainExplanations = document.querySelectorAll(".main_explanations")
+    for(i=0;i<mainExplanations.length;i++){
+        console.log("xxxxxxx",mainExplanations[i].children)
+    }
+
+</script> -->
+  <center>
+
+    <h6>
+      
+      <!-- {% for l in loi %} 
+          {% if user.id not in l.all_user %}  
+          {% if follow_loi %}        
+             <a class="btn btn-dark-sm disabled" href="{% url 'follow_loi' l.id %}">  + {{l }}  &nbsp;</a> 
+                     {% else %} 
+              <a class="btn btn-info" href="{% url 'follow_loi' l.id %}">  + {{l }}  &nbsp;</a> 
+                     {% endif %}
+
+                     {% else %}
+             <a class="btn btn-secondary"style="color: red" href="{% url 'follow_loi' l.id %}?unfollow=true"> - {{ l }} &nbsp;</a>
+       {% endif %}
+  {% endfor %} -->
+</h6>
+
+    <table>
+      <tr>
+        <td width="50px">
+            <!-- <h6>interacting language: <b> 
+                    {% for loi in follow_cats %}
+                        {{ loi.loi }}
+                      {% endfor %}
+                    </b>   <hr></h6>
+
+                {% for i in follow_cats %}
+                  
+                  {% if i.loi.num == 1 %}
+                    {{topic.AR_title | safe}}
+                  {% endif %}
+
+                  {% if i.loi.num == 2 %}
+                    {{topic.EN_title | safe}}
+                  {% endif %}
+
+                  {% if i.loi.num == 3 %}
+                    {{topic.FR_title | safe}}
+                  {% endif %}
+
+                  {% if i.loi.num == 4 %}
+                    {{topic.HA_title | safe}}
+                  {% endif %}
+
+                  {% if i.loi.num == 5 %}
+                    {{topic.IG_title | safe}}
+                  {% endif %}
+
+                  {% if i.loi.num == 6 %}
+                    {{topic.YO_title | safe}}                    
+                  {% endif %}
+                {% endfor %} -->
+          </td>
+
+        <td width="50px"> 
+          <h6> language to learn: <b> 
+          <!-- {% for fl in follow_lang %}
+              {{ fl.language }}
+            {% endfor %} -->
+          </b>  
+           <hr>
+          </h6>
+          
+        <!-- {{topic.main_title | safe}} -->
+        
+        </td>
+       
+      </tr>
+    </table>
+
+    <br>
+
+     <table>
+      <tr>        
+        <!-- <td>
+                {% for i in follow_cats %}
+                  
+                  {% if i.loi.num == 1 %}
+                    {{topic.AR_explanations | safe}}
+                  {% endif %}
+
+                  {% if i.loi.num == 2 %}
+                    {{topic.EN_explanations | safe}}
+                  {% endif %}
+
+                  {% if i.loi.num == 3 %}
+                    {{topic.FR_explanations | safe}}
+                  {% endif %}
+
+                  {% if i.loi.num == 4 %}
+                    {{topic.HA_explanations | safe}}
+                  {% endif %}
+
+                  {% if i.loi.num == 5 %}
+                    {{topic.IG_explanations | safe}}
+                  {% endif %}
+
+                  {% if i.loi.num == 6 %}                  
+                      {{topic.YO_explanations | safe}} 
+                  {% endif %}
+
+                {% endfor %}
+               
+          </td>       -->
+        <td>
+       
+            {{ topic.main_explanations | safe}}
+            
+       
+        </td>
+      </tr>
+     
+    </table>
+
+    <br>
+
+                  
+  </center>
+
+       </div>               
+      </div>
+    </section><!-- End Contact Section -->
+  </main><!-- End #main -->
+
+{% include '../auth_user/auth_footer.html' %}
+{% endblock %}
+
