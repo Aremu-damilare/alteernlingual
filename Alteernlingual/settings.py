@@ -41,8 +41,10 @@ INSTALLED_APPS = [
     'Alteernlingual_topic',    
     'crispy_forms',
     'ckeditor',
-    'social_django'
-     
+    'allauth', 
+    'allauth.account', 
+    'allauth.socialaccount',     
+    'allauth.socialaccount.providers.facebook'        
 
 ]
 
@@ -55,8 +57,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    'social_django.middleware.SocialAuthExceptionMiddleware', #social-auth
 ]
 
 ROOT_URLCONF = 'Alteernlingual.urls'
@@ -73,26 +73,17 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
 
-                'social_django.context_processors.backends',  #social-auth
-                'social_django.context_processors.login_redirect', #social-auth
             ],
         },
     },
 ]
 
-#social-auth
-# AUTHENTICATION_BACKENDS = (
-#     'social_core.backends.twitter.TwitterOAuth',
-#     'social_core.backends.facebook.FacebookOAuth2',
 
-#     'django.contrib.auth.backends.ModelBackend',
-# )
 
-SOCIAL_AUTH_TWITTER_KEY = ''
-SOCIAL_AUTH_TWITTER_SECRET = ''
 
-SOCIAL_AUTH_FACEBOOK_KEY = ''  # App ID
-SOCIAL_AUTH_FACEBOOK_SECRET = ''  # App Secret
+
+SOCIAL_AUTH_FACEBOOK_KEY = '454152439240824'  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = 'b7e00649c097ea5b8000ef2105d6b5a7'  # App Secret
 
 
 LOGIN_URL = 'login'
@@ -261,3 +252,14 @@ CKEDITOR_CONFIGS = {
     'default': {'toolbar': 'full','extraPlugins': ','.join(['html5audio',]),},
 
             }
+
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'APP': {
+            'client_id': '454152439240824',
+            'secret': 'b7e00649c097ea5b8000ef2105d6b5a7',
+            'key': '',
+            'scope': ['email'],
+        }
+    }
+}            
