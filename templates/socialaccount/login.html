@@ -1,0 +1,8 @@
+{% load socialaccount %}
+
+{% block content %}
+  <form method="post" action="{% provider_login_url 'facebook' %}">
+    {% csrf_token %}
+    <button type="submit">Sign in with Facebook</button>
+  </form>
+{% endblock %}

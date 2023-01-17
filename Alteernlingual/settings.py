@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django.contrib.sitemaps' ,
+    'django.contrib.sites',
     'alteernlingual_user',
     'Alteernlingual_topic',    
     'crispy_forms',
@@ -44,7 +47,7 @@ INSTALLED_APPS = [
     'allauth', 
     'allauth.account', 
     'allauth.socialaccount',     
-    'allauth.socialaccount.providers.facebook'        
+    'allauth.socialaccount.providers.facebook',    
 
 ]
 
@@ -263,3 +266,13 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }            
+
+
+SITE_ID = 1
+
+
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_AUTHENTICATION_METHOD = "facebook"
+ACCOUNT_EMAIL_REQUIRED = False
+
+LOGIN_REDIRECT_URL = "/" 

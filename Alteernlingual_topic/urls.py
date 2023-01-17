@@ -1,10 +1,21 @@
 from django.urls import path, include
-from Alteernlingual_topic import views
+from Alteernlingual_topic.views import AllTopicsSimple, PrivacyPolicy, TermsOfService
+from django.contrib.sitemaps.views import sitemap
 
 
-urlpatterns = [ 
-	
-	# path('lessons', views.lessonsView.as_view(), name='lessons'),
+from .sitemaps import LessonListSitemap
+
+sitemaps = {
+    'lessons': LessonListSitemap,
+}
+
+
+urlpatterns = [ 	
+	path('', AllTopicsSimple.as_view(), name='home'),
+    path('privacy-policy', PrivacyPolicy, name='privacypolicy'),
+    path('terms-of-service', TermsOfService, name='termsofservice'),
+
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     # # path('topics-simple', views.AllTopicsSimple.as_view(), name='topics_simple'),
     # path('<int:pk>', views.TopicDetail.as_view(), name='detail'),
     # # path('course/<int:pk>', views.subTopicDetail.as_view(), name='topic_detail'),
