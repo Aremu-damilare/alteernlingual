@@ -17,7 +17,6 @@ class Topic(models.Model):
     EN_explanations = RichTextUploadingField(null=True, blank=True, default=None)
     read_by = models.ManyToManyField(User, related_name='read_topics', blank=True)    
     
- 
     # def get_url(self):
     #    return reverse('detail', args=[self.id])
 
