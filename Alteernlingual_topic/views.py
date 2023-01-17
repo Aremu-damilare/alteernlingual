@@ -46,7 +46,7 @@ class AllTopicsSimple(ListView):
             total_topics = Topic.objects.all().count()
             percentage = round((num_topics_read / total_topics) * 100)
             context['policyconditions'] = PolicyConditions.objects.get(pk=1)    
-            context['last_read'] = Topic.objects.filter(read_by=self.request.user).last()     
+            context['last_read'] = Topic.objects.filter(read_by=self.request.user).last()
             context['percentage'] = percentage
             context['total_topics'] = total_topics
             context['num_topics_read'] = num_topics_read
