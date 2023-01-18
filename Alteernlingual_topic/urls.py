@@ -1,5 +1,5 @@
 from django.urls import path, include
-from Alteernlingual_topic.views import AllTopicsSimple, PrivacyPolicy, TermsOfService
+from Alteernlingual_topic.views import AllTopicsSimple, PrivacyPolicy, TermsOfService, logout_view, TopicReadToggleView
 from django.contrib.sitemaps.views import sitemap
 
 
@@ -14,6 +14,8 @@ urlpatterns = [
 	path('', AllTopicsSimple.as_view(), name='home'),
     path('privacy-policy', PrivacyPolicy, name='privacypolicy'),
     path('terms-of-service', TermsOfService, name='termsofservice'),
+    path('logout', logout_view, name='logout'),
+    path('topic/<int:pk>/read/', TopicReadToggleView.as_view(), name='topic_read_toggle'),
 
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     # # path('topics-simple', views.AllTopicsSimple.as_view(), name='topics_simple'),

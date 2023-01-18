@@ -31,7 +31,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
 
     # path('', AllTopicsSimple.as_view(), name='home'),
-     path('topic/<int:pk>/read/', TopicReadToggleView.as_view(), name='topic_read_toggle'),
+    # path('topic/<int:pk>/read/', TopicReadToggleView.as_view(), name='topic_read_toggle'),
     path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type="text/plain"), name="robots_file"),
 
 

@@ -14,6 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView
 from django.db.models import Count
 from django.db.models import Q
+from django.contrib.auth import logout
 
 
 
@@ -72,8 +73,7 @@ class TopicReadToggleView(LoginRequiredMixin, UpdateView):
             topic.read_by.remove(request.user)
         else:
             topic.read_by.add(request.user)
-        topic.save()
-        # return redirect('topic_detail', topic.id)
+        topic.save()        
         return redirect('home')
 
 
@@ -94,3 +94,9 @@ def TermsOfService(request):
     }
     
     return render(request, 'terms-of-service.html', context=context)    
+
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')    
