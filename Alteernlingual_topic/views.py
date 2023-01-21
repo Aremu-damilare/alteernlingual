@@ -77,6 +77,27 @@ class TopicReadToggleView(LoginRequiredMixin, UpdateView):
         return redirect('home')
 
 
+
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from .models import Topic
+
+@login_required
+def mark_topic_as_read(request, topic_id):
+    if request.method == 'POST' and request.is_ajax():
+        topic = Topic.objects.get(id=topic_id)
+        user = request.user
+        
+        if request.user in topic.read_by.all():
+            topic.read_by.remove(request.user)
+        else:
+            topic.read_by.add(request.user)
+
+        topic.save()
+        return JsonResponse({'status': 'success'})
+    return JsonResponse({'status': 'error'})
+
+
 def PrivacyPolicy(request):        
     privacyPolicy = PolicyConditions.objects.get(pk=1)
     context = {

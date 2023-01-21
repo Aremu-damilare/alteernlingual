@@ -16,6 +16,7 @@ class Topic(models.Model):
     main_explanations = RichTextUploadingField(null=True, blank=True, default=None)   
     EN_explanations = RichTextUploadingField(null=True, blank=True, default=None)
     read_by = models.ManyToManyField(User, related_name='read_topics', blank=True)    
+    # is_read = models.BooleanField(default=False)
     
     def __str__(self):
         return f'{self.title}'
