@@ -3,7 +3,29 @@ CKEDITOR.dialog.add( 'html5audio', function( editor ) {
         title: editor.lang.html5audio.title,
         minWidth: 500,
         minHeight: 100,
-        contents: [ {
+
+        contents: [ 
+            {
+                id: 'Upload',
+                hidden: true,
+                filebrowser: 'uploadButton',
+                label: editor.lang.html5audio.upload,
+                elements: [ {
+                    type: 'file',
+                    id: 'upload',
+                    label: editor.lang.html5audio.btnUpload,
+                    style: 'height:40px',
+                    size: 38
+                },
+                {
+                    type: 'fileButton',
+                    id: 'uploadButton',
+                    filebrowser: 'info:url',
+                    label: editor.lang.html5audio.btnUpload,
+                    'for': [ 'Upload', 'upload' ]
+                } ]
+            },
+            {
             id: 'info',
             label: editor.lang.html5audio.infoLabel,
             elements: [ {
@@ -52,7 +74,7 @@ CKEDITOR.dialog.add( 'html5audio', function( editor ) {
                         [editor.lang.common.alignRight, 'right'],
                         [editor.lang.common.alignNone, 'none']
                     ],
-                    'default': 'center',
+                    'default': 'none',
                     setup: function( widget ) {
                         if ( widget.data.align ) {
                             this.setValue( widget.data.align );
@@ -64,26 +86,7 @@ CKEDITOR.dialog.add( 'html5audio', function( editor ) {
                 } ]
             } ]
         },
-        {
-            id: 'Upload',
-            hidden: true,
-            filebrowser: 'uploadButton',
-            label: editor.lang.html5audio.upload,
-            elements: [ {
-                type: 'file',
-                id: 'upload',
-                label: editor.lang.html5audio.btnUpload,
-                style: 'height:40px',
-                size: 38
-            },
-            {
-                type: 'fileButton',
-                id: 'uploadButton',
-                filebrowser: 'info:url',
-                label: editor.lang.html5audio.btnUpload,
-                'for': [ 'Upload', 'upload' ]
-            } ]
-        },
+        
         {
             id: 'advanced',
             label: editor.lang.html5audio.advanced,

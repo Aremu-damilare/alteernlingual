@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'Alteernlingual_topic',    
     'crispy_forms',
     'ckeditor',
+    'ckeditor_uploader',
     'allauth', 
     'allauth.account', 
     'allauth.socialaccount',     
@@ -81,6 +82,11 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATE_CONTEXT_PROCESSORS = [
+    # ...
+    'django.core.context_processors.request',
+    # ...
+]
 
 
 
